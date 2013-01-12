@@ -1,0 +1,7 @@
+order allow,deny
+allow from all
+
+# Uncomment php_value to improve error output
+# Best configured with an ABSOLUTE path
+
+# php_value auto_prepend_file ../shutdown.php

@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Exception thrown by Filesystem_Model when file existance is in conflict with
+ * operation.
+ * 
+ * @package Evander
+ * @author ebollens
+ * @copyright Copyright (c) 2013, Eric Bollens
+ * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0 
+ */
+
+class Filesystem_Model_Existance_Exception extends Filesystem_Model_Exception {}
