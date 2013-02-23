@@ -115,12 +115,13 @@ class View
      * @param string $name
      * @param mixed $value 
      */
-    public function set_var($name, $value)
+    public function &set_var($name, $value)
     {
     	if($value instanceof View)
             $value = $value->render();
     	
         $this->_vars[$name] = $value;
+		return $this;
     }
     
     /**
