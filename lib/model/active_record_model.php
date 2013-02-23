@@ -335,20 +335,19 @@ class Active_Record_Model
      * @throws Active_Record_Model_Exception
      * @return bool 
      */
-    public function create()
+    public function create($key_not_exists = true)
     {
         // Throw exception if the object is already bound to a table row.
-        if($this->_key)
+        if($key_not_exists && $this->_key)
         {
             throw new Active_Record_Model_Exception('Cannot add existing active record to database.');
         }
         
         // Throw exception if the buffer includes attributes that do not exist 
         // as columns in the table.
-        if(count(array_diff(array_keys($this->_data_buffer), $this->get_fields())) > 0)
-        {
-            throw new Active_Record_Model_Exception('Cannot add active record with fields not in database table.');
-        }
+		$diff_fields = array_diff(array_keys($this->_data_buffer), $this->get_fields());
+        if(count($diff_fields) > 0)
+            throw new Active_Record_Model_Exception('Cannot add active record with fields (`'.  implode('`, `', $diff_fields).'`) not in database table.');
         
         // Generate the fields and values specifiers for insert, transmuting the
         // value definitions for special cases including numeric, NULL, and
@@ -643,8 +642,11 @@ class Active_Record_Model
             throw new Active_Record_Model_Exception('Cannot update non-existant active record in the database.');
         
         // Throw na exception if buffer has any attributes not in table.
-        if(count(array_diff(array_keys($this->_data_buffer), $this->get_fields())) > 0)
-            throw new Active_Record_Model_Exception('Cannot update active record with fields not in database table.');
+		// Throw exception if the buffer includes attributes that do not exist 
+        // as columns in the table.
+		$diff_fields = array_diff(array_keys($this->_data_buffer), $this->get_fields());
+        if(count($diff_fields) > 0)
+            throw new Active_Record_Model_Exception('Cannot update active record with fields (`'.  implode('`, `', $diff_fields).'`) not in database table.');
         
         // Return true without write if buffer doesn't have anything to update.
         if(count($this->_data_buffer) == 0)
