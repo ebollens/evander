@@ -158,6 +158,9 @@ class MVC
             throw new HTTP_Sent_Header_Exception('Cannot specify Location as HTTP headers already sent.');
 
         header('Location: '.MVC::url($controller, $method, $params));
+		Template::disable();
+		Output::clean();
+		die();
     }
     
     /**
