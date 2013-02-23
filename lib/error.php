@@ -53,6 +53,7 @@ class Error
             $error_view->message = $exception->getMessage();
             $error_view->file = $exception->getFile();
             $error_view->line = $exception->getLine();
+			$error_view->trace = $exception->getTraceAsString();
         }
         echo $error_view->render();
 

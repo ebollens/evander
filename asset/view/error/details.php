@@ -3,3 +3,6 @@
 <p><strong><?php echo $type; ?></strong>
 <br><?php echo $message; ?>
 <br><em><?php echo $file; ?>:<?php echo $line; ?></em></p>
+<?php if(isset($trace)){ ?>
+<br><?php echo nl2br($trace); ?>
+<?php } ?>
