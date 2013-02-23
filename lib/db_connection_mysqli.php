@@ -128,7 +128,7 @@ class DB_Connection_MySQLi extends DB_Connection
         // A false result implies that the query failed, so throw exception.
         if(!$result)
         {
-            throw new DB_Connection_MySQLi_Exception('MySQLi DB query failed: '.$this->get_query_error().' ['.$this->get_query_errno().']');
+            throw new DB_Connection_MySQLi_Exception('MySQLi DB query failed: '.$this->get_query_error().' ['.$this->get_query_errno().']', $this->get_query_errno());
         }
         
         // Otherwise, return the query result set as a DB_Result_MySQLi object.
