@@ -21,7 +21,7 @@ class Input
                         : $_GET[$key];
 
         if($sanitize != Sanitize::NO)
-            return Sanitize::clean($raw, $type);
+            return Sanitize::clean($value, $sanitize);
         
          return $value;
     }
@@ -36,7 +36,7 @@ class Input
                         : $_POST[$key];
 
         if($sanitize != Sanitize::NO)
-            return Sanitize::clean($raw, $type);
+            return Sanitize::clean($value, $sanitize);
         
         return $value;
     }
