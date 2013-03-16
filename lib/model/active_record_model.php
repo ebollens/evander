@@ -667,13 +667,17 @@ class Active_Record_Model
             
             $changes[] = $change;
         }
-        
+		
         // Issue the update in the database.
-        $this->_key = $this->_db->query('UPDATE `'.$this->_table.'` SET '.implode(',', $changes).' WHERE '.$this->get_key_columns_sql().';');
+        $this->_db->query('UPDATE `'.$this->_table.'` SET '.implode(',', $changes).' WHERE '.$this->get_key_columns_sql().';');
         
         // Overwrite old values in $this->_data_current with thos in the buffer.
         foreach($this->_data_buffer as $field => $value)
+		{
             $this->_data_current[$field] = $value;
+			if(($idx = array_search($field, $this->_col)) !== false)
+				$this->_key[$idx] = $value;
+		}
         
         // All buffer values have been written so reset it to empty.
         $this->_data_buffer = array();
