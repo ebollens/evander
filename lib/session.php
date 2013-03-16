@@ -20,6 +20,11 @@ class Session
         
         session_start();
     }
+	
+	public static function id()
+	{
+		return session_id();
+	}
     
     public static function get($name, $throw_exception = true)
     {
