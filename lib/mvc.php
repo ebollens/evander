@@ -122,7 +122,7 @@ class MVC
         catch(Hook_Exception $e){}
         
         // Throw an exception if controller method does not exist.
-        if(!method_exists(self::$_controller, self::get_method_name()))
+        if(!method_exists(self::$_controller, self::get_method_name()) && !method_exists(self::$_controller, '__call'))
         {
             throw new MVC_Exception('Controller method "'.self::get_method_name().'" does not exist.');
         }
@@ -158,8 +158,6 @@ class MVC
             throw new HTTP_Sent_Header_Exception('Cannot specify Location as HTTP headers already sent.');
 
         header('Location: '.MVC::url($controller, $method, $params));
-		Template::disable();
-		Output::clean();
 		die();
     }
     
