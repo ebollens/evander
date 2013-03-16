@@ -66,7 +66,7 @@ class Sanitize
     public static function clean($var, $type = Sanitize::NO)
     {
         // Return raw if no sanitization
-        if($type == self::NO | !$type)
+        if($type == self::NO || !$type)
             return $var;
         
         // Deep clean (recursive)
@@ -118,7 +118,7 @@ class Sanitize
             
             // Determine if we're doing any checks that limit the subset of
             // characters well below that of HTML-like code.
-            if(($type | 0xF0FF) != 0xF0FF)
+            if(($type & self::STRING_CLEAN_NO_HTML) != self::STRING_CLEAN_NO_HTML)
             {
                 $allowed = '';
                 
@@ -129,10 +129,10 @@ class Sanitize
                     $allowed .= '0-9\.';
                 
                 if(($type & self::STRING_ALLOW_EXTENDED) == $type)
-                    $allowed .= '/_-';
+                    $allowed .= '\/_-';
                 
                 if(($type & self::STRING_ALLOW_SPACE) == $type)
-                    $allowed .= ' ';
+                    $allowed .= ' \s';
                 
                 if(!preg_match('/^['.$allowed.']*$/', $var))
                     return null;
